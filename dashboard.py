@@ -19,7 +19,7 @@ if fl is not None:
     df = pd.read_csv(fl, encoding="ISO-8859-1")
 else:
     # If no file is uploaded, read the default file from the specified directory
-    default_file_path = r"C:\Users\chand\OneDrive\Desktop\Dashboard\Superstore.csv"
+    default_file_path = r"C:\Users\chand\OneDrive\Desktop\Dashboard\dashboard.py"
     df = pd.read_csv(default_file_path, encoding="ISO-8859-1")
 
     col1, col2=st.columns((2))
