@@ -10,14 +10,17 @@ st.set_page_config(page_title="Superstore!!!",page_icon=":bar_chart:", layout="w
 st.title(":bar_chart:Sample Superstore EDA")
 st.markdown('<style>div.block-container(padding-top:1rem;)</style>',unsafe_allow_html=True)
 
-fl=st.file_uploader(":file_folder: Upload a file", type=(["csv","txt","xlsx","xls"]))
+fl = st.file_uploader(":file_folder: Upload a file", type=["csv", "txt", "xlsx", "xls"])
+
 if fl is not None:
-    filename=fl.name
+    # If a file is uploaded, read that file
+    filename = fl.name
     st.write(filename)
-    df=pd.read_csv(filename,encoding="ISO-8859-1")
+    df = pd.read_csv(fl, encoding="ISO-8859-1")
 else:
-    os.chdir(r"C:\Users\chand\OneDrive\Desktop\Dashboard\dashboard.py")
-    df=pd.read_csv("Superstore.csv",encoding="ISO-8859-1")
+    # If no file is uploaded, read the default file from the specified directory
+    default_file_path = r"C:\Users\chand\OneDrive\Desktop\Dashboard\Superstore.csv"
+    df = pd.read_csv(default_file_path, encoding="ISO-8859-1")
 
     col1, col2=st.columns((2))
     df["Order Date"]= pd.to_datetime(df["Order Date"])
