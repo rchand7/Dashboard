@@ -1,9 +1,9 @@
 import streamlit as st
-import plotly.express as px
-import pandas as pd
-import os
-import warnings
 import matplotlib
+import plotly.express as px
+import pandas as pd 
+import os 
+import warnings 
 warnings.filterwarnings('ignore')
 
 st.set_page_config(page_title="Superstore!!!",page_icon=":bar_chart:", layout="wide")
@@ -11,17 +11,18 @@ st.set_page_config(page_title="Superstore!!!",page_icon=":bar_chart:", layout="w
 st.title(":bar_chart:Sample Superstore EDA")
 st.markdown('<style>div.block-container(padding-top:1rem;)</style>',unsafe_allow_html=True)
 
-fl = st.file_uploader(":file_folder: Upload a file", type=["csv", "txt", "xlsx", "xls"])
+fl = st.file_uploader(":file_folder: Upload a file", type=(["csv","txt","xlsx","xls"]))
 
+filename = None  # Initialize filename to None
 if fl is not None:
-    # If a file is uploaded, read that file
     filename = fl.name
-    st.write(filename)
 
-    df = pd.read_csv("Superstore.csv", encoding="ISO-8859-1")
+st.write(filename)
 
-    col1, col2=st.columns((2))
-    df["Order Date"]= pd.to_datetime(df["Order Date"])
+df = pd.read_csv("Superstore.csv", encoding="ISO-8859-1")
+
+col1, col2=st.columns((2))
+df["Order Date"]= pd.to_datetime(df["Order Date"])
 
     #Getting the min and max date
 startDate= pd.to_datetime(df["Order Date"]).min()
@@ -92,14 +93,14 @@ with cl1:
         csv=category_df.to_csv(index=False).encode('utf-8')
         st.download_button("Download Data",data=csv,file_name="Category.csv",mime="text/csv",
                                help=" Click here to download the data as a CSV file")
-           
+            
 with cl2:
     with st.expander("Region_ViewData"):
         region=filtered_df.groupby(by="Region",as_index= False)["Sales"].sum()
         st.write(region.style.background_gradient(cmap="Oranges"))
         csv=region.to_csv(index=False).encode('utf-8')
         st.download_button("Download Data",data=csv,file_name="Region.csv",mime="text/csv",
-                               help=" Click here to download the data as a CSV file")
+                               help=" Click here to download the data as a CSV file") 
 
 
 filtered_df["month_year"]=filtered_df["Order Date"].dt.to_period("M")
@@ -134,7 +135,7 @@ with st.expander("View Data of TimeSeries:"):
         fig.update_traces(text=filtered_df["Category"],textposition="inside")
         st.plotly_chart(fig,use_container_width=True)
 
-   
+    
 
     import plotly.figure_factory as ff
 
